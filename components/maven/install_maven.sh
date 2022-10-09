@@ -4,8 +4,7 @@ set -e
 
 # Locate shell script path
 SCRIPT_DIR=$(dirname $0)
-if [ ${SCRIPT_DIR} != '.' ]
-then
+if [ ${SCRIPT_DIR} != '.' ]; then
   cd ${SCRIPT_DIR}
 fi
 
@@ -15,7 +14,7 @@ fi
 # Download and install Maven
 VERSION="$1"
 if [ ! -n "${VERSION}" ]; then
-    VERSION="3.6.0"
+  VERSION="3.6.3"
 fi
 
 MAVEN_VERSION="apache-maven-${VERSION}"
@@ -35,13 +34,12 @@ chown -R root:root /opt/${MAVEN_VERSION}
 ln -s /opt/${MAVEN_VERSION} /opt/apache-maven
 
 # Set PATH system variable
-cat > /etc/profile.d/maven.sh <<EOF
+cat >/etc/profile.d/maven.sh <<EOF
 export M2_HOME=/opt/apache-maven
 export PATH=\$PATH:\$M2_HOME/bin
 EOF
 
 source /etc/profile.d/maven.sh
-
 
 # Check Maven
 mvn -version
